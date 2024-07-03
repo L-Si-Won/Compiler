@@ -1,0 +1,22 @@
+NAME = compiler
+
+CC = cc
+
+SOURCE = \
+	 y.tab.c \
+	 lex.yy.c \
+
+all : $(NAME)
+
+$(NAME) :
+	yacc -d kim.y
+	lex kim.l
+	cc $(SOURCE) print.c print_sem.c semantic.c code_generation.c -o $(NAME) -w -m32
+
+clean :
+	rm -f $(SOURCE) y.tab.h
+
+fclean : clean
+	rm -f $(NAME)
+
+re : fclean all
